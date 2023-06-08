@@ -1,0 +1,48 @@
+﻿@model List<Evento>
+@{
+    List<Categoria> categorias = ViewData["CATEGORIAS"] as List<Categoria>;
+    string s3 = ViewData["S3"] as string;
+}
+
+
+<h1>EVENTOS</h1>
+
+<a asp-action="Create" asp-controller="Conciertos" >NUEVO EVENTO</a>
+
+<h3>
+    Filtro
+</h3>
+<form method="post">
+    <select name="idcat">
+        @foreach(Categoria cat in categorias)
+        {
+            <option value="@cat.Id" >@cat.Nombre</option>
+        }
+    </select>
+    <button>Filtrar</button>
+</form>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Nombre</td>
+            <td>Artista</td>
+            <td>IdCategoria</td>
+            <td>Imagen</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Evento e in Model)
+        {
+            <tr>
+                <td>@e.Nombre</td>
+                <td>@e.Artista</td>
+                <td>@e.IdCategoria</td>
+                <td><img src="@s3@e.Imagen" height="150px" /></td>
+            </tr>
+        }
+    </tbody>
+
+</table>
